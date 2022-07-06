@@ -1,0 +1,2805 @@
+openapi: 3.0.0
+info:
+  title: Loyalty API
+  description: >-
+    # Overview
+
+
+    Please select the `Staging` environment to begin testing APIs.
+
+
+    A default user with shortId **80JQ-CQ10-O3UI** is provided to test API
+    endpoints in the Loyalty API. You can test using a different user by
+    changing **authKey** and **personalizedOfferKey** environment variables. A
+    preset header is provided for basic authentication for most endpoints.
+
+
+    If using a different user, be sure to check the body of request which can
+    contain a Card specific barcode, shortId or userId which will be different
+    than the default user.
+
+
+    The API endpoint names in this document matches its corresponding AWS lambda
+    function.
+
+
+    # Authentication
+
+
+    The preset header for authorization is made up of following values.
+
+
+    ``` json
+
+    "headers": {
+        "Authorization": "bearer us-east-1:69b07f7f-2a91-4691-95c8-3de13345a914",
+        "Accept": "application/json",
+        "x-api-key": "*secret value*"
+    }
+
+
+    ```
+  version: 1.0.0
+servers:
+  - url: http://{{url}}
+components:
+  securitySchemes:
+    noauthAuth:
+      type: http
+      scheme: noauth
+tags:
+  - name: user
+    description: Endpoints for a loyalty user
+  - name: rutr
+  - name: support
+  - name: template
+paths:
+  /user/activateoffer:
+    get:
+      tags:
+        - user
+      summary: ActivatePersonalizedOffer
+      parameters:
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: x-api-key
+          in: header
+          schema:
+            type: string
+          example: '{{xApiKey}}'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: bearer us-east-1:69b07f7f-2a91-4691-95c8-3de13345a914
+        - name: key
+          in: query
+          schema:
+            type: string
+          example: '{{personalizedOfferKey}}'
+      responses:
+        '203':
+          description: Non-Authoritative Information
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Tue, 03 May 2022 19:06:44 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '2'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            x-amzn-RequestId:
+              schema:
+                type: string
+                example: 29562836-fa8c-4447-85b1-b982f2ce423a
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Strict-Transport-Security:
+              schema:
+                type: string
+                example: max-age=31536000; includeSubDomains; preload
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: >-
+                  Accept,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,Origin,X-Requested-With,locale,Locale,Verify,X-Session,Location
+            x-amz-apigw-id:
+              schema:
+                type: string
+                example: RkCCuEtqoAMFgLw=
+            Cache-Control:
+              schema:
+                type: string
+                example: no-store
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: GET,OPTIONS
+            X-Requested-With:
+              schema:
+                type: string
+                example: '*'
+            X-Amzn-Trace-Id:
+              schema:
+                type: string
+                example: Root=1-62717d44-5384edd259ff484c68a94d9b;Sampled=0
+            Pragma:
+              schema:
+                type: string
+                example: no-cache
+          content:
+            application/json:
+              schema:
+                type: object
+              example: {}
+  /user/adddigitalcard:
+    post:
+      tags:
+        - user
+      summary: AddCard
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                CouponId: 463
+                CampaignId: 38
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: '{{authKey}}'
+        - name: x-api-key
+          in: header
+          schema:
+            type: string
+          example: '{{xApiKey}}'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Wed, 04 May 2022 15:31:06 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '237'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            x-amzn-RequestId:
+              schema:
+                type: string
+                example: 4a296424-1132-4563-8237-b02666905651
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Strict-Transport-Security:
+              schema:
+                type: string
+                example: max-age=31536000; includeSubDomains; preload
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: >-
+                  Accept,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,Origin,X-Requested-With,locale,Locale,Verify,X-Session,Location
+            x-amz-apigw-id:
+              schema:
+                type: string
+                example: Rm1Y0H-toAMFz3Q=
+            Cache-Control:
+              schema:
+                type: string
+                example: no-store
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: GET,OPTIONS
+            X-Requested-With:
+              schema:
+                type: string
+                example: '*'
+            X-Amzn-Trace-Id:
+              schema:
+                type: string
+                example: Root=1-62729c38-4402024f3306172e1d1bbcd3;Sampled=0
+            Pragma:
+              schema:
+                type: string
+                example: no-cache
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                type: 1
+                country: CA
+                barcode: >-
+                  0463000000125255991231|C1A79B64365C30CC7B4E10A33E90A8AC|D4880CC22D553CAE5DC33396018217C9
+                shortId: 80JQCQ10O3UI
+                name: '???'
+                rewardsTierId: ad5f2843-ce34-48a5-b080-d1fe5edeca83
+                status: Active
+  /user/appleWallet:
+    get:
+      tags:
+        - user
+      summary: GetAppleWalletPass
+      security:
+        - noauthAuth: []
+      parameters:
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: '{{acceptVal}}'
+        - name: x-api-key
+          in: header
+          schema:
+            type: string
+          example: '{{xApiKey}}'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: '{{authKey}}'
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: '{{acceptVal}}'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /user/braze:
+    post:
+      tags:
+        - user
+      summary: SetBrazeProfile
+      requestBody:
+        content: {}
+      parameters:
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          description: application/json
+          example: '{{acceptVal}}'
+        - name: x-api-key
+          in: header
+          schema:
+            type: string
+          description: Card specific API key
+          example: '{{xApiKey}}'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          description: DB Auth Key
+          example: '{{authKey}}'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Mon, 09 May 2022 14:31:40 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '2'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            x-amzn-RequestId:
+              schema:
+                type: string
+                example: 6177037e-1c28-41c4-92fd-4de77d44ef20
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Strict-Transport-Security:
+              schema:
+                type: string
+                example: max-age=31536000; includeSubDomains; preload
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: >-
+                  Accept,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,Origin,X-Requested-With,locale,Locale,Verify,X-Session,Location
+            x-amz-apigw-id:
+              schema:
+                type: string
+                example: R3LXtE8dIAMFz3Q=
+            Cache-Control:
+              schema:
+                type: string
+                example: no-store
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: GET,OPTIONS
+            X-Requested-With:
+              schema:
+                type: string
+                example: '*'
+            X-Amzn-Trace-Id:
+              schema:
+                type: string
+                example: Root=1-627925ca-2f95993441c5c0651be08b4f;Sampled=0
+            Pragma:
+              schema:
+                type: string
+                example: no-cache
+          content:
+            application/json:
+              schema:
+                type: object
+              example: {}
+  /user/eventStatus:
+    get:
+      tags:
+        - user
+      summary: GetEventStatus
+      parameters:
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: bearer us-east-1:69b07f7f-2a91-4691-95c8-3de13345a914
+        - name: x-api-key
+          in: header
+          schema:
+            type: string
+          example: '{{xApiKey}}'
+        - name: eventId
+          in: query
+          schema:
+            type: string
+          example: RUTR_US_22
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Thu, 05 May 2022 19:23:08 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '2'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            x-amzn-RequestId:
+              schema:
+                type: string
+                example: 537185ce-0b10-409d-8b1c-4a124ae8d396
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Strict-Transport-Security:
+              schema:
+                type: string
+                example: max-age=31536000; includeSubDomains; preload
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: >-
+                  Accept,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,Origin,X-Requested-With,locale,Locale,Verify,X-Session,Location
+            x-amz-apigw-id:
+              schema:
+                type: string
+                example: RqqUQFk-oAMFylA=
+            Cache-Control:
+              schema:
+                type: string
+                example: no-store
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: GET,OPTIONS
+            X-Requested-With:
+              schema:
+                type: string
+                example: '*'
+            X-Amzn-Trace-Id:
+              schema:
+                type: string
+                example: Root=1-6274241b-13e6199e2fd1ab80783fda89;Sampled=0
+            Pragma:
+              schema:
+                type: string
+                example: no-cache
+          content:
+            application/json:
+              schema:
+                type: object
+              example: {}
+  /user/getcardlist:
+    get:
+      tags:
+        - user
+      summary: GetCards
+      parameters:
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: '{{acceptVal}}'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: '{{authKey}}'
+        - name: x-api-key
+          in: header
+          schema:
+            type: string
+          example: '{{xApiKey}}'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Wed, 04 May 2022 15:30:19 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '239'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            x-amzn-RequestId:
+              schema:
+                type: string
+                example: 58973c1e-2e6b-4f43-b456-9f52444262c3
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Strict-Transport-Security:
+              schema:
+                type: string
+                example: max-age=31536000; includeSubDomains; preload
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: >-
+                  Accept,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,Origin,X-Requested-With,locale,Locale,Verify,X-Session,Location
+            x-amz-apigw-id:
+              schema:
+                type: string
+                example: Rm1RxFzaoAMFZwA=
+            Cache-Control:
+              schema:
+                type: string
+                example: no-store
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: GET,OPTIONS
+            X-Requested-With:
+              schema:
+                type: string
+                example: '*'
+            X-Amzn-Trace-Id:
+              schema:
+                type: string
+                example: Root=1-62729c0b-531a8fb8727afe9058f88137;Sampled=0
+            Pragma:
+              schema:
+                type: string
+                example: no-cache
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                - type: 1
+                  country: CA
+                  barcode: >-
+                    0463000000125255991231|C1A79B64365C30CC7B4E10A33E90A8AC|D4880CC22D553CAE5DC33396018217C9
+                  shortId: 80JQCQ10O3UI
+                  name: '???'
+                  rewardsTierId: ad5f2843-ce34-48a5-b080-d1fe5edeca83
+                  status: Active
+  /user/cards:
+    get:
+      tags:
+        - user
+      summary: GetCardsWithStatus
+      parameters:
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: X-Api-Key
+          in: header
+          schema:
+            type: string
+          example: 57144160c469540db24c69b035530dfc1b6f464a46a887305cc0dc7a204297c3
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: bearer us-east-1:69b07f7f-2a91-4691-95c8-3de13345a914
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Wed, 04 May 2022 15:31:28 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '2332'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            x-amzn-RequestId:
+              schema:
+                type: string
+                example: fdd201e4-b178-434f-a437-6839d11c9d14
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Strict-Transport-Security:
+              schema:
+                type: string
+                example: max-age=31536000; includeSubDomains; preload
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: >-
+                  Accept,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,Origin,X-Requested-With,locale,Locale,Verify,X-Session,Location
+            x-amz-apigw-id:
+              schema:
+                type: string
+                example: Rm1cZEYUIAMFy2Q=
+            Cache-Control:
+              schema:
+                type: string
+                example: no-store
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: GET,OPTIONS
+            X-Requested-With:
+              schema:
+                type: string
+                example: '*'
+            X-Amzn-Trace-Id:
+              schema:
+                type: string
+                example: Root=1-62729c4f-597d3a1f48f9b9801b825a92;Sampled=0
+            Pragma:
+              schema:
+                type: string
+                example: no-cache
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                - cardFormat: Digital
+                  barcode: >-
+                    0463000000125255991231|C1A79B64365C30CC7B4E10A33E90A8AC|D4880CC22D553CAE5DC33396018217C9
+                  cardId: 80JQCQ10O3UI
+                  status: Active
+                  donationUpcharge: false
+                  scanAndPay: false
+                  canEarnVisit: true
+                  canRedeemReward: false
+                  offers:
+                    - offerId: 56b8ccb7-7521-43fb-bf56-bbf98831735f
+                      startDate: '2022-05-03T18:10:02.443Z'
+                      expiryDate: '2022-05-10T18:10:02.443Z'
+                      activated: true
+                      key: 408951b0-cb0c-11ec-8292-1d0ce5e7943a
+                      rank: 0
+                    - offerId: 97bb5a01-94b8-49a9-99bd-77cbff837dae
+                      startDate: '2022-05-03T18:10:02.443Z'
+                      expiryDate: '2022-05-10T18:10:02.443Z'
+                      activated: true
+                      key: 408951b2-cb0c-11ec-8292-1d0ce5e7943a
+                      rank: 0
+                    - offerId: 7e1c8816-8e9c-48c7-823a-937d9b78468e
+                      startDate: '2022-05-03T18:10:02.443Z'
+                      expiryDate: '2022-05-10T18:10:02.443Z'
+                      activated: true
+                      key: 408951b6-cb0c-11ec-8292-1d0ce5e7943a
+                      rank: 0
+                    - offerId: d05ee406-1650-4b97-926d-444d32012583
+                      startDate: '2022-05-03T18:10:02.443Z'
+                      expiryDate: '2022-05-10T18:10:02.443Z'
+                      activated: false
+                      key: 408951b5-cb0c-11ec-8292-1d0ce5e7943a
+                      rank: 0
+                    - offerId: 18e1af93-4c46-4741-939d-da0e6d988f3f
+                      startDate: '2022-05-03T18:10:02.443Z'
+                      expiryDate: '2022-05-10T18:10:02.443Z'
+                      activated: false
+                      key: 408951b3-cb0c-11ec-8292-1d0ce5e7943a
+                      rank: 0
+                    - offerId: 667202c8-4c82-411c-b5f8-1e8f577e10d5
+                      startDate: '2022-05-03T18:10:02.443Z'
+                      expiryDate: '2022-05-10T18:10:02.443Z'
+                      activated: false
+                      key: 408951b1-cb0c-11ec-8292-1d0ce5e7943a
+                      rank: 0
+                    - offerId: 282d2f0c-0660-4f04-b4fc-fe998e744668
+                      startDate: '2022-05-03T18:10:02.443Z'
+                      expiryDate: '2022-05-10T18:10:02.443Z'
+                      activated: false
+                      key: 408951b4-cb0c-11ec-8292-1d0ce5e7943a
+                      rank: 0
+                  points: 0
+                  pointExpiry: []
+                  rewardsTier: ad5f2843-ce34-48a5-b080-d1fe5edeca83
+                  availableRewardsTiers:
+                    - 0b0e845c-9017-441a-ad20-e1daafde5c69
+                    - ad5f2843-ce34-48a5-b080-d1fe5edeca83
+                    - 7ae3e957-2ee7-4ba4-98f5-1d6b1c016cc0
+                    - d3c9ab8a-8b64-44fe-a224-04a74d986a83
+                    - 866968aa-d98e-4af8-b08a-01ae9185129e
+                    - c729b72a-0e1a-40d5-bbb9-350d63dd76aa
+                    - 58c1c84d-18dd-460c-854d-34aca3282898
+                    - 61414e58-42bc-4f63-a649-6deac15f6553
+                    - 18fd03e4-fe3e-4895-9164-9d2215681abb
+                    - 6f0206db-27a3-4dbb-8b53-b0be0524d59d
+                    - 2d043bf8-4d22-458e-abd8-3e0dd076b8e1
+                    - 84c3bec2-bab6-4a5b-9ac8-b5b28464418e
+                    - bcb64b09-0d94-4e6a-8167-fd92385539d7
+                    - de7f5c5a-4a59-4fdf-a75d-4749a4fb40cb
+  /user/getcardstatus:
+    put:
+      tags:
+        - user
+      summary: GetCardStatus
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                Barcode: >-
+                  0463000000125255991231|C1A79B64365C30CC7B4E10A33E90A8AC|D4880CC22D553CAE5DC33396018217C9
+      parameters:
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: '{{acceptVal}}'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: '{{authKey}}'
+        - name: x-api-key
+          in: header
+          schema:
+            type: string
+          example: '{{xApiKey}}'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Wed, 04 May 2022 15:25:51 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '2504'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            x-amzn-RequestId:
+              schema:
+                type: string
+                example: 3ff1d2bc-0981-4ab3-88e0-23a45b9623af
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Strict-Transport-Security:
+              schema:
+                type: string
+                example: max-age=31536000; includeSubDomains; preload
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: >-
+                  Accept,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,Origin,X-Requested-With,locale,Locale,Verify,X-Session,Location
+            x-amz-apigw-id:
+              schema:
+                type: string
+                example: Rm0n8EXSIAMFe3g=
+            Cache-Control:
+              schema:
+                type: string
+                example: no-store
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: GET,OPTIONS
+            X-Requested-With:
+              schema:
+                type: string
+                example: '*'
+            X-Amzn-Trace-Id:
+              schema:
+                type: string
+                example: Root=1-62729aff-5d64424122028d7606ef139f;Sampled=0
+            Pragma:
+              schema:
+                type: string
+                example: no-cache
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                barcode: >-
+                  0463000000125255991231|C1A79B64365C30CC7B4E10A33E90A8AC|D4880CC22D553CAE5DC33396018217C9
+                cardId: 80JQCQ10O3UI
+                status: Active
+                cardType: 1
+                country: CA
+                numberOfTransactionsInTimePeriod: 0
+                numberOfTransactionsNeeded: 12
+                periodStartTimestamp: ''
+                periodEndTimestamp: ''
+                discountActiveUntil: ''
+                donationUpcharge: false
+                scanAndPay: false
+                availableRedemptions: 0
+                canEarnVisit: true
+                canRedeemReward: false
+                offers:
+                  - offerId: 56b8ccb7-7521-43fb-bf56-bbf98831735f
+                    startDate: '2022-05-03T18:10:02.443Z'
+                    expiryDate: '2022-05-10T18:10:02.443Z'
+                    activated: true
+                    key: 408951b0-cb0c-11ec-8292-1d0ce5e7943a
+                    rank: 0
+                  - offerId: 97bb5a01-94b8-49a9-99bd-77cbff837dae
+                    startDate: '2022-05-03T18:10:02.443Z'
+                    expiryDate: '2022-05-10T18:10:02.443Z'
+                    activated: true
+                    key: 408951b2-cb0c-11ec-8292-1d0ce5e7943a
+                    rank: 0
+                  - offerId: 7e1c8816-8e9c-48c7-823a-937d9b78468e
+                    startDate: '2022-05-03T18:10:02.443Z'
+                    expiryDate: '2022-05-10T18:10:02.443Z'
+                    activated: true
+                    key: 408951b6-cb0c-11ec-8292-1d0ce5e7943a
+                    rank: 0
+                  - offerId: d05ee406-1650-4b97-926d-444d32012583
+                    startDate: '2022-05-03T18:10:02.443Z'
+                    expiryDate: '2022-05-10T18:10:02.443Z'
+                    activated: false
+                    key: 408951b5-cb0c-11ec-8292-1d0ce5e7943a
+                    rank: 0
+                  - offerId: 18e1af93-4c46-4741-939d-da0e6d988f3f
+                    startDate: '2022-05-03T18:10:02.443Z'
+                    expiryDate: '2022-05-10T18:10:02.443Z'
+                    activated: false
+                    key: 408951b3-cb0c-11ec-8292-1d0ce5e7943a
+                    rank: 0
+                  - offerId: 667202c8-4c82-411c-b5f8-1e8f577e10d5
+                    startDate: '2022-05-03T18:10:02.443Z'
+                    expiryDate: '2022-05-10T18:10:02.443Z'
+                    activated: false
+                    key: 408951b1-cb0c-11ec-8292-1d0ce5e7943a
+                    rank: 0
+                  - offerId: 282d2f0c-0660-4f04-b4fc-fe998e744668
+                    startDate: '2022-05-03T18:10:02.443Z'
+                    expiryDate: '2022-05-10T18:10:02.443Z'
+                    activated: false
+                    key: 408951b4-cb0c-11ec-8292-1d0ce5e7943a
+                    rank: 0
+                points: 0
+                pointExpiry: []
+                rewardsTier: ad5f2843-ce34-48a5-b080-d1fe5edeca83
+                availableRewardsTiers:
+                  - 0b0e845c-9017-441a-ad20-e1daafde5c69
+                  - ad5f2843-ce34-48a5-b080-d1fe5edeca83
+                  - 7ae3e957-2ee7-4ba4-98f5-1d6b1c016cc0
+                  - d3c9ab8a-8b64-44fe-a224-04a74d986a83
+                  - 866968aa-d98e-4af8-b08a-01ae9185129e
+                  - c729b72a-0e1a-40d5-bbb9-350d63dd76aa
+                  - 58c1c84d-18dd-460c-854d-34aca3282898
+                  - 61414e58-42bc-4f63-a649-6deac15f6553
+                  - 18fd03e4-fe3e-4895-9164-9d2215681abb
+                  - 6f0206db-27a3-4dbb-8b53-b0be0524d59d
+                  - 2d043bf8-4d22-458e-abd8-3e0dd076b8e1
+                  - 84c3bec2-bab6-4a5b-9ac8-b5b28464418e
+                  - bcb64b09-0d94-4e6a-8167-fd92385539d7
+                  - de7f5c5a-4a59-4fdf-a75d-4749a4fb40cb
+  /user/getofferimage:
+    get:
+      tags:
+        - user
+      summary: GetOfferImage
+      parameters:
+        - name: key
+          in: query
+          schema:
+            type: string
+          example: '{{personalizedOfferKey}}'
+        - name: locale
+          in: query
+          schema:
+            type: string
+          description: '"en" or "fr"'
+          example: en
+      responses:
+        '500':
+          description: Internal Server Error
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Wed, 04 May 2022 15:36:19 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '36'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            x-amzn-RequestId:
+              schema:
+                type: string
+                example: deac80cb-cc64-4275-95aa-e8a9ea4876fe
+            x-amzn-ErrorType:
+              schema:
+                type: string
+                example: InternalServerErrorException
+            x-amz-apigw-id:
+              schema:
+                type: string
+                example: Rm2KIGwEIAMFv0g=
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: Internal server error
+  /user/gettransactions:
+    put:
+      tags:
+        - user
+      summary: GetTransactions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                Barcode: 80JQCQ10O3UI
+                PageSize: 10
+                Page: 1
+                StartDate: '2019-01-16T19:34:01.089Z'
+                EndDate: '2022-05-16T19:34:01.089Z'
+                SortOrder: Desc
+      parameters:
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: '{{acceptVal}}'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: '{{authKey}}'
+        - name: x-api-key
+          in: header
+          schema:
+            type: string
+          example: '{{xApiKey}}'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Wed, 04 May 2022 16:28:27 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '63'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            x-amzn-RequestId:
+              schema:
+                type: string
+                example: 8073e2ae-6724-4615-a932-199380e4807b
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Strict-Transport-Security:
+              schema:
+                type: string
+                example: max-age=31536000; includeSubDomains; preload
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: >-
+                  Accept,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,Origin,X-Requested-With,locale,Locale,Verify,X-Session,Location
+            x-amz-apigw-id:
+              schema:
+                type: string
+                example: Rm9yYFmvIAMFvEA=
+            Cache-Control:
+              schema:
+                type: string
+                example: no-store
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: GET,OPTIONS
+            X-Requested-With:
+              schema:
+                type: string
+                example: '*'
+            X-Amzn-Trace-Id:
+              schema:
+                type: string
+                example: Root=1-6272a9a8-4c2c9da94e486769643f14b1;Sampled=0
+            Pragma:
+              schema:
+                type: string
+                example: no-cache
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                totalNumberOfTransactions: 0
+                pageCount: 0
+                transactions: []
+  /user/googlePay:
+    get:
+      tags:
+        - user
+      summary: GetGooglePayPass
+      parameters:
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          description: application/json
+          example: '{{acceptVal}}'
+        - name: x-api-key
+          in: header
+          schema:
+            type: string
+          description: Card specific API key
+          example: '{{xApiKey}}'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          description: DB Auth Key
+          example: '{{authKey}}'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Mon, 09 May 2022 14:33:19 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '750'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            x-amzn-RequestId:
+              schema:
+                type: string
+                example: 044553e7-257b-48ac-9f6b-9a0e2cc1f429
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Strict-Transport-Security:
+              schema:
+                type: string
+                example: max-age=31536000; includeSubDomains; preload
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: >-
+                  Accept,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,Origin,X-Requested-With,locale,Locale,Verify,X-Session,Location
+            x-amz-apigw-id:
+              schema:
+                type: string
+                example: R3LnLFRBIAMF1Ag=
+            Cache-Control:
+              schema:
+                type: string
+                example: no-store
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: GET,OPTIONS
+            X-Requested-With:
+              schema:
+                type: string
+                example: '*'
+            X-Amzn-Trace-Id:
+              schema:
+                type: string
+                example: Root=1-6279262d-55f6b22d32253fe85b09b004;Sampled=0
+            Pragma:
+              schema:
+                type: string
+                example: no-cache
+          content:
+            application/json:
+              schema:
+                type: object
+              example: >-
+                eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXAiOiJzYXZldG9hbmRyb2lkcGF5Iiwib3JpZ2lucyI6WyJodHRwczovL3RpbWhvcnRvbnMuY29tIl0sInBheWxvYWQiOnsibG95YWx0eU9iamVjdHMiOlt7ImlkIjoiMzMyNDcxNTQ5NjcxMzg3NTkzMC51cy1lYXN0LTEtNjliMDdmN2YtMmE5MS00NjkxLTk1YzgtM2RlMTMzNDVhOTE0In1dfSwiaWF0IjoxNjUyMTA2Nzk5LCJhdWQiOiJnb29nbGUiLCJpc3MiOiJnb29nbGUtcGF5LXBhc3NAbWFwLWZvci13b3JrLWV4dC05MTYyNjY4NS5pYW0uZ3NlcnZpY2VhY2NvdW50LmNvbSJ9.w8yjSaGdooocqO8oE6cOBJEX-QKYFgUZholo0WD3tCw38QD1cUnBUd8cS48mHD_PTTdbwgzSTHGqkeVPNQjxxFzwevPIXdbnvUk4Czcdssfov6yoMSkQbMg8yV6bpCm-XxiRXRDGB8ygWv7HjmXv4-_9kNsKepTlc-26zI-J1_i42XmGqfTW-HgZKSXUW123qpAw2ByUwY0cTQUdXIszZ8y4-9oteus69gk1ffnDfezWDE_SyiW9YmZVTrSVVe-SJpuST6PJbvbkuGZDfIAzMpyilchCeSgsCUXpuYceURVlNL9ujXRNQxVj71pPAHi2UcDtqQYA9x9Fy-gT5uSbLQ
+  /user/offer:
+    post:
+      tags:
+        - user
+      summary: AddOffer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                offerId: 07c34f22-d884-499e-9b56-7ad27f010e24
+                activate: true
+      parameters:
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: '{{acceptVal}}'
+        - name: x-api-key
+          in: header
+          schema:
+            type: string
+          example: '{{xApiKey}}'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: '{{authKey}}'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Thu, 05 May 2022 19:39:05 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '237'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            x-amzn-RequestId:
+              schema:
+                type: string
+                example: eadce6a3-7a7a-488d-ae5e-8f101991a975
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Strict-Transport-Security:
+              schema:
+                type: string
+                example: max-age=31536000; includeSubDomains; preload
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: >-
+                  Accept,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,Origin,X-Requested-With,locale,Locale,Verify,X-Session,Location
+            x-amz-apigw-id:
+              schema:
+                type: string
+                example: RqspyFTYoAMFZfw=
+            Cache-Control:
+              schema:
+                type: string
+                example: no-store
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: GET,OPTIONS
+            X-Requested-With:
+              schema:
+                type: string
+                example: '*'
+            X-Amzn-Trace-Id:
+              schema:
+                type: string
+                example: Root=1-627427d8-6cb669ec2bc6579e1e64644c;Sampled=0
+            Pragma:
+              schema:
+                type: string
+                example: no-cache
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                type: 1
+                country: CA
+                barcode: >-
+                  0463000000125255991231|C1A79B64365C30CC7B4E10A33E90A8AC|D4880CC22D553CAE5DC33396018217C9
+                shortId: 80JQCQ10O3UI
+                name: '???'
+                rewardsTierId: ad5f2843-ce34-48a5-b080-d1fe5edeca83
+                status: Active
+  /user/preferences:
+    post:
+      tags:
+        - user
+      summary: SetUserPreferences
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                Barcode: >-
+                  0463000000125255991231|C1A79B64365C30CC7B4E10A33E90A8AC|D4880CC22D553CAE5DC33396018217C9
+                RewardsTier: ad5f2843-ce34-48a5-b080-d1fe5edeca83
+                DonationUpcharge: true
+      parameters:
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: '{{acceptVal}}'
+        - name: x-api-key
+          in: header
+          schema:
+            type: string
+          example: '{{xApiKey}}'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: '{{authKey}}'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Thu, 05 May 2022 20:04:27 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '261'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            x-amzn-RequestId:
+              schema:
+                type: string
+                example: c210e704-eb80-439d-ac0a-eb218483a534
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Strict-Transport-Security:
+              schema:
+                type: string
+                example: max-age=31536000; includeSubDomains; preload
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: >-
+                  Accept,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,Origin,X-Requested-With,locale,Locale,Verify,X-Session,Location
+            x-amz-apigw-id:
+              schema:
+                type: string
+                example: RqwXiFSaIAMFqOQ=
+            Cache-Control:
+              schema:
+                type: string
+                example: no-store
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: GET,OPTIONS
+            X-Requested-With:
+              schema:
+                type: string
+                example: '*'
+            X-Amzn-Trace-Id:
+              schema:
+                type: string
+                example: Root=1-62742dc9-072652707ddb47a7359a7ded;Sampled=0
+            Pragma:
+              schema:
+                type: string
+                example: no-cache
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                type: 1
+                country: CA
+                barcode: >-
+                  0463000000125255991231|C1A79B64365C30CC7B4E10A33E90A8AC|D4880CC22D553CAE5DC33396018217C9
+                shortId: 80JQCQ10O3UI
+                name: '???'
+                rewardsTierId: ad5f2843-ce34-48a5-b080-d1fe5edeca83
+                donationUpcharge: true
+                status: Active
+  /user/registercard:
+    post:
+      tags:
+        - user
+      summary: RegisterCard
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                CardId: >-
+                  0463000000037168991231|F875500147B9F609BAD7E1216E7B5330|D293672CDC4199AE5DD243630A51F7F2
+                userId: us-east-1:69b07f7f-2a91-4691-95c8-3de13345a914
+      parameters:
+        - name: x-api-key
+          in: header
+          schema:
+            type: string
+          example: '{{xApiKey}}'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: '{{authKey}}'
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: '{{acceptVal}}'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Thu, 05 May 2022 20:10:08 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '194'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            x-amzn-RequestId:
+              schema:
+                type: string
+                example: 9fe6d3ce-3b1a-4c74-ba16-99a4c0ba699f
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Strict-Transport-Security:
+              schema:
+                type: string
+                example: max-age=31536000; includeSubDomains; preload
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: >-
+                  Accept,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,Origin,X-Requested-With,locale,Locale,Verify,X-Session,Location
+            x-amz-apigw-id:
+              schema:
+                type: string
+                example: RqxMuGfbIAMF2PQ=
+            Cache-Control:
+              schema:
+                type: string
+                example: no-store
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: GET,OPTIONS
+            X-Requested-With:
+              schema:
+                type: string
+                example: '*'
+            X-Amzn-Trace-Id:
+              schema:
+                type: string
+                example: Root=1-62742f1e-3180a0a942bb72f974e37f36;Sampled=0
+            Pragma:
+              schema:
+                type: string
+                example: no-cache
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                type: 1
+                country: CA
+                barcode: >-
+                  0463000000037168991231|F875500147B9F609BAD7E1216E7B5330|D293672CDC4199AE5DD243630A51F7F2
+                name: '???'
+                rewardsTierId: ad5f2843-ce34-48a5-b080-d1fe5edeca83
+  /user/share:
+    get:
+      tags:
+        - user
+      summary: Receive
+      parameters:
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: '{{acceptVal}}'
+        - name: x-api-key
+          in: header
+          schema:
+            type: string
+          example: '{{xApiKey}}'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: '{{authKey}}'
+        - name: token
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /user/share/offers:
+    get:
+      tags:
+        - user
+      summary: GetShareableOffers
+      parameters:
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: '{{acceptVal}}'
+        - name: x-api-key
+          in: header
+          schema:
+            type: string
+          example: '{{xApiKey}}'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: '{{authKey}}'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Wed, 04 May 2022 18:11:52 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '819'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            x-amzn-RequestId:
+              schema:
+                type: string
+                example: 99c30509-0292-4390-99a7-2b15c338e962
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Strict-Transport-Security:
+              schema:
+                type: string
+                example: max-age=31536000; includeSubDomains; preload
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: >-
+                  Accept,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,Origin,X-Requested-With,locale,Locale,Verify,X-Session,Location
+            x-amz-apigw-id:
+              schema:
+                type: string
+                example: RnM72HQ4IAMFTew=
+            Cache-Control:
+              schema:
+                type: string
+                example: no-store
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: GET,OPTIONS
+            X-Requested-With:
+              schema:
+                type: string
+                example: '*'
+            X-Amzn-Trace-Id:
+              schema:
+                type: string
+                example: Root=1-6272c1e5-370cdc5414ad8ba127640bb7;Sampled=0
+            Pragma:
+              schema:
+                type: string
+                example: no-cache
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                - cost: 6
+                  offerId: 1205-TEST
+                  eligible: false
+                - cost: 50
+                  offerId: d2dd9cb3-9b0f-479c-8e1b-e40046f57170
+                  eligible: false
+                - cost: 60
+                  offerId: 1205-TEST3
+                  eligible: false
+                - cost: 70
+                  offerId: 961f9d75-7069-4110-886a-d032f553bb20
+                  eligible: false
+                - cost: 70
+                  offerId: c334080a-9f92-4e15-b770-a0d6f7f7040e
+                  eligible: false
+                - cost: 100
+                  offerId: 4a503afe-515c-44ca-852d-ba95e759a367
+                  eligible: false
+                - cost: 100
+                  offerId: 1205-TEST2
+                  eligible: false
+                - cost: 120
+                  offerId: SHAREABLE_OFFER_TEST
+                  eligible: false
+                - cost: 140
+                  offerId: 973ba42d-bc5f-4095-89da-a2b72d8a1801
+                  eligible: false
+                - cost: 140
+                  offerId: 95a1b0e0-3448-46b3-a3b6-ae04cc593501
+                  eligible: false
+                - cost: 10000
+                  offerId: BRAND_NEW_MERCEDES
+                  eligible: false
+                - cost: 100000000
+                  offerId: 1205-TEST-BIGCOST
+                  eligible: false
+  /user/status:
+    get:
+      tags:
+        - user
+      summary: GetLoyaltyStatus
+      parameters:
+        - name: userId
+          in: query
+          schema:
+            type: string
+          example: us-east-1:69b07f7f-2a91-4691-95c8-3de13345a914
+        - name: language
+          in: query
+          schema:
+            type: string
+          description: '"en" or "fr"'
+          example: en
+        - name: rutr
+          in: query
+          schema:
+            type: string
+          example: RUTR_US_22
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Wed, 04 May 2022 18:14:53 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '306'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            x-amzn-RequestId:
+              schema:
+                type: string
+                example: 1ba21846-c342-422e-bcf9-0c37427f13c5
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Strict-Transport-Security:
+              schema:
+                type: string
+                example: max-age=31536000; includeSubDomains; preload
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: >-
+                  Accept,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,Origin,X-Requested-With,locale,Locale,Verify,X-Session,Location
+            x-amz-apigw-id:
+              schema:
+                type: string
+                example: RnNYXFuNoAMFSmQ=
+            Cache-Control:
+              schema:
+                type: string
+                example: no-store
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: GET,OPTIONS
+            X-Requested-With:
+              schema:
+                type: string
+                example: '*'
+            X-Amzn-Trace-Id:
+              schema:
+                type: string
+                example: Root=1-6272c29b-7fe7312d664ab9895ae4d064;Sampled=0
+            Pragma:
+              schema:
+                type: string
+                example: no-cache
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                points: 0
+                pointExpiry: []
+                rewardsTier:
+                  id: ad5f2843-ce34-48a5-b080-d1fe5edeca83
+                  name: Brewed Coffee and Tea
+                  description: ''
+                rutr:
+                  event: RUTR_US_22
+                  remainingRolls: 0
+                  earnedRolls: 0
+                  sharedRolls:
+                    count: 0
+                    receivers: 0
+                  coffeePrizes: 0
+                  donutPrizes: 0
+                  grandPrizes: []
+                  pointsWon: 0
+  /user/timeline:
+    get:
+      tags:
+        - user
+      summary: GetTimeline
+      parameters:
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: '{{acceptVal}}'
+        - name: x-api-key
+          in: header
+          schema:
+            type: string
+          example: '{{xApiKey}}'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: '{{authKey}}'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Wed, 04 May 2022 18:16:31 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '2'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            x-amzn-RequestId:
+              schema:
+                type: string
+                example: 2440b466-41ae-432c-bdf6-169973290489
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Strict-Transport-Security:
+              schema:
+                type: string
+                example: max-age=31536000; includeSubDomains; preload
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: >-
+                  Accept,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,Origin,X-Requested-With,locale,Locale,Verify,X-Session,Location
+            x-amz-apigw-id:
+              schema:
+                type: string
+                example: RnNnhER-oAMFkeg=
+            Cache-Control:
+              schema:
+                type: string
+                example: no-store
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: GET,OPTIONS
+            X-Requested-With:
+              schema:
+                type: string
+                example: '*'
+            X-Amzn-Trace-Id:
+              schema:
+                type: string
+                example: Root=1-6272c2fc-0049230679e4637d755c3159;Sampled=0
+            Pragma:
+              schema:
+                type: string
+                example: no-cache
+          content:
+            application/json:
+              schema:
+                type: object
+              example: []
+  /user/updatecard:
+    post:
+      tags:
+        - user
+      summary: UpdateCard
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                Barcode: TESTTHIS_barcode|barcode|barcode
+                Points: 10
+                PointsTotal: 200
+                UserId: TEST_USER
+                ShortId: TESTTHIS_SHORT
+                CardType: Digital
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: '{{acceptVal}}'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Wed, 04 May 2022 18:19:11 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '26'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            x-amzn-RequestId:
+              schema:
+                type: string
+                example: ab004c1c-429a-4b5a-a69f-729dc35156ca
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Strict-Transport-Security:
+              schema:
+                type: string
+                example: max-age=31536000; includeSubDomains; preload
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: >-
+                  Accept,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,Origin,X-Requested-With,locale,Locale,Verify,X-Session,Location
+            x-amz-apigw-id:
+              schema:
+                type: string
+                example: RnOAsFTCoAMFjPg=
+            Cache-Control:
+              schema:
+                type: string
+                example: no-store
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: GET,OPTIONS
+            X-Requested-With:
+              schema:
+                type: string
+                example: '*'
+            X-Amzn-Trace-Id:
+              schema:
+                type: string
+                example: Root=1-6272c39d-4e274a6406da39d062cc1fc3;Sampled=0
+            Pragma:
+              schema:
+                type: string
+                example: no-cache
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                updateStatus: updated
+  /user/voucher:
+    post:
+      tags:
+        - user
+      summary: MergeVoucher
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                voucherId: SY4QDZ4Y04MW
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: '{{acceptVal}}'
+        - name: x-api-key
+          in: header
+          schema:
+            type: string
+          example: '{{xApiKey}}'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: '{{authKey}}'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /rutr/getSharedRollsStatus:
+    get:
+      tags:
+        - rutr
+      summary: GetSharedRollsStatus
+      parameters:
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: '{{acceptVal}}'
+        - name: x-api-key
+          in: header
+          schema:
+            type: string
+          example: '{{xApiKey}}'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: '{{authKey}}'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Wed, 04 May 2022 18:50:42 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '2'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            x-amzn-RequestId:
+              schema:
+                type: string
+                example: 3cabdc71-8998-42cf-9276-634bcc0f88cc
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Strict-Transport-Security:
+              schema:
+                type: string
+                example: max-age=31536000; includeSubDomains; preload
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: >-
+                  Accept,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,Origin,X-Requested-With,locale,Locale,Verify,X-Session,Location
+            x-amz-apigw-id:
+              schema:
+                type: string
+                example: RnSoNF8AoAMF70w=
+            Cache-Control:
+              schema:
+                type: string
+                example: no-store
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: GET,OPTIONS
+            X-Requested-With:
+              schema:
+                type: string
+                example: '*'
+            X-Amzn-Trace-Id:
+              schema:
+                type: string
+                example: Root=1-6272cb01-7f2b713f5240e20e0947a1df;Sampled=0
+            Pragma:
+              schema:
+                type: string
+                example: no-cache
+          content:
+            application/json:
+              schema:
+                type: object
+              example: []
+  /rutr/prizes:
+    get:
+      tags:
+        - rutr
+      summary: GetPrizes
+      parameters:
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: '{{acceptVal}}'
+        - name: x-api-key
+          in: header
+          schema:
+            type: string
+          example: '{{xApiKey}}'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: '{{authKey}}'
+        - name: eventId
+          in: query
+          schema:
+            type: string
+          description: RUTR Event ID
+          example: RUTR_CAN_22
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Thu, 05 May 2022 14:38:26 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '2939'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            x-amzn-RequestId:
+              schema:
+                type: string
+                example: 56efcb75-8285-457b-8a54-0c95b9d3ca11
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Strict-Transport-Security:
+              schema:
+                type: string
+                example: max-age=31536000; includeSubDomains; preload
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: >-
+                  Accept,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,Origin,X-Requested-With,locale,Locale,Verify,X-Session,Location
+            x-amz-apigw-id:
+              schema:
+                type: string
+                example: RqAnOFJaIAMFn_A=
+            Cache-Control:
+              schema:
+                type: string
+                example: no-store
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: GET,OPTIONS
+            X-Requested-With:
+              schema:
+                type: string
+                example: '*'
+            X-Amzn-Trace-Id:
+              schema:
+                type: string
+                example: Root=1-6273e161-77f9161d0f41f97f0ab290b8;Sampled=0
+            Pragma:
+              schema:
+                type: string
+                example: no-cache
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                total: 37142184
+                awarded: 493
+                details:
+                  - prizeId: win-sportsnet-code
+                    awarded: 3
+                    total: 2000
+                  - prizeId: win-cineplex-grand
+                    awarded: 0
+                    total: 2000
+                  - prizeId: win-MOP-10bonus
+                    awarded: 24
+                    total: 5000000
+                  - prizeId: win-25-timcard
+                    awarded: 84
+                    total: 300000
+                  - prizeId: win-pkg-bundle
+                    awarded: 2
+                    total: 2000
+                  - prizeId: win-hilton-fortlauderdale
+                    awarded: 2
+                    total: 2000
+                  - prizeId: win-4000-fuel
+                    awarded: 2
+                    total: 2000
+                  - prizeId: win-microsoft-surface
+                    awarded: 3
+                    total: 2000
+                  - prizeId: win-pkg-discount
+                    awarded: 4
+                    total: 100000
+                  - prizeId: win-ubereats-code
+                    awarded: 6
+                    total: 2000
+                  - prizeId: win-hilton-keylargo
+                    awarded: 2
+                    total: 2000
+                  - prizeId: win-10-thebay
+                    awarded: 22
+                    total: 100000
+                  - prizeId: win-samsung-4ktv
+                    awarded: 2
+                    total: 2000
+                  - prizeId: win-hilton-conrad
+                    awarded: 3
+                    total: 2000
+                  - prizeId: win-5c-journie
+                    awarded: 22
+                    total: 250000
+                  - prizeId: win-100-thebay
+                    awarded: 2
+                    total: 2000
+                  - prizeId: win-donut
+                    awarded: 6
+                    total: 42047
+                  - prizeId: win-hilton-hollywood
+                    awarded: 1
+                    total: 2000
+                  - prizeId: win-hilton-signia
+                    awarded: 2
+                    total: 2000
+                  - prizeId: win-canadream-rv
+                    awarded: 3
+                    total: 2000
+                  - prizeId: win-skullcandy-earbuds
+                    awarded: 2
+                    total: 2000
+                  - prizeId: win-7c-journie
+                    awarded: 8
+                    total: 250000
+                  - prizeId: win-cineplex-code
+                    awarded: 10
+                    total: 70000
+                  - prizeId: win-hilton-westpalm
+                    awarded: 1
+                    total: 2000
+                  - prizeId: win-chillymoose-bucket
+                    awarded: 1
+                    total: 2000
+                  - prizeId: win-hilton-weekend
+                    awarded: 2
+                    total: 2000
+                  - prizeId: win-chillymoose-icebox
+                    awarded: 3
+                    total: 2000
+                  - prizeId: win-skullcandy-discount
+                    awarded: 12
+                    total: 4000000
+                  - prizeId: win-crave-sub-standard
+                    awarded: 5
+                    total: 100000
+                  - prizeId: win-15-points
+                    awarded: 25
+                    total: 4170405
+                  - prizeId: win-coffee
+                    awarded: 3
+                    total: 98111
+                  - prizeId: win-galaxy-s22
+                    awarded: 1
+                    total: 2000
+                  - prizeId: win-hilton-tampabay
+                    awarded: 1
+                    total: 2000
+                  - prizeId: win-pkg-code
+                    awarded: 10
+                    total: 200000
+                  - prizeId: win-hilton-orlando
+                    awarded: 2
+                    total: 2000
+                  - prizeId: win-athletic-sub-standard
+                    awarded: 15
+                    total: 300000
+                  - prizeId: win-hilton-clearwater
+                    awarded: 1
+                    total: 2000
+                  - prizeId: win-MOP-20bonus
+                    awarded: 53
+                    total: 5000000
+                  - prizeId: win-hilton-miami
+                    awarded: 1
+                    total: 2000
+                  - prizeId: win-chillymoose-code
+                    awarded: 7
+                    total: 250000
+                  - prizeId: win-cineplex-discount
+                    awarded: 5
+                    total: 20000
+                  - prizeId: win-1month-pc
+                    awarded: 17
+                    total: 150000
+                  - prizeId: win-100-home-hardware
+                    awarded: 1
+                    total: 2000
+                  - prizeId: win-parks-discoverypass
+                    awarded: 2
+                    total: 2000
+                  - prizeId: win-5000-homehardware
+                    awarded: 1
+                    total: 2000
+                  - prizeId: win-10-points
+                    awarded: 43
+                    total: 16681621
+                  - prizeId: win-5-points
+                    awarded: 61
+                  - prizeId: win-1000-amex
+                    awarded: 3
+                    total: 2000
+                  - prizeId: win-taos
+                    awarded: 1
+                    total: 2000
+                  - prizeId: win-athletic-sub-grand
+                    awarded: 1
+                    total: 2000
+  /rutr/revealRoll:
+    post:
+      tags:
+        - rutr
+      summary: RevealRoll
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                rollId: 8502fcd0-e4d3-11eb-b2d8-35db51019bb7
+      parameters:
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: '{{acceptVal}}'
+        - name: x-api-key
+          in: header
+          schema:
+            type: string
+          example: '{{xApiKey}}'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: '{{authKey}}'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /support/card:
+    get:
+      tags:
+        - support
+      summary: GetCard
+      parameters:
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: '{{acceptVal}}'
+        - name: x-api-key
+          in: header
+          schema:
+            type: string
+          example: '{{xApiKey}}'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: '{{authKey}}'
+        - name: barcode
+          in: query
+          schema:
+            type: string
+          example: 80JQCQ10O3UI
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Wed, 04 May 2022 19:28:48 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '185'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            x-amzn-RequestId:
+              schema:
+                type: string
+                example: 7bf18965-adf9-417c-88ae-1546c465ceb2
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Strict-Transport-Security:
+              schema:
+                type: string
+                example: max-age=31536000; includeSubDomains; preload
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: >-
+                  Accept,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,Origin,X-Requested-With,locale,Locale,Verify,X-Session,Location
+            x-amz-apigw-id:
+              schema:
+                type: string
+                example: RnYNXHGzIAMFhhA=
+            Cache-Control:
+              schema:
+                type: string
+                example: no-store
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: GET,OPTIONS
+            X-Requested-With:
+              schema:
+                type: string
+                example: '*'
+            X-Amzn-Trace-Id:
+              schema:
+                type: string
+                example: Root=1-6272d3ee-1fe214a06506cf697510188e;Sampled=0
+            Pragma:
+              schema:
+                type: string
+                example: no-cache
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                shortId: 80JQCQ10O3UI
+                barcode: >-
+                  0463000000125255991231|C1A79B64365C30CC7B4E10A33E90A8AC|D4880CC22D553CAE5DC33396018217C9
+                userId: us-east-1:69b07f7f-2a91-4691-95c8-3de13345a914
+  /support/issuepoints:
+    post:
+      tags:
+        - support
+      summary: IssuePoints
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                Barcode: 80JQCQ10O3UI
+                Rolls: 5
+                Points: 10
+      parameters:
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: '{{acceptVal}}'
+        - name: X-Api-Key
+          in: header
+          schema:
+            type: string
+          example: '{{xApiKey}}'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: '{{authKey}}'
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: '{{acceptVal}}'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Fri, 27 May 2022 13:07:15 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '2'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            x-amzn-RequestId:
+              schema:
+                type: string
+                example: eea6d5aa-d1fa-440a-856e-5a9d1539c476
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Strict-Transport-Security:
+              schema:
+                type: string
+                example: max-age=31536000; includeSubDomains; preload
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: >-
+                  Accept,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,Origin,X-Requested-With,locale,Locale,Verify,X-Session,Location
+            x-amz-apigw-id:
+              schema:
+                type: string
+                example: SyT4fErtoAMFytA=
+            Cache-Control:
+              schema:
+                type: string
+                example: no-store
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: GET,OPTIONS
+            X-Requested-With:
+              schema:
+                type: string
+                example: '*'
+            X-Amzn-Trace-Id:
+              schema:
+                type: string
+                example: Root=1-6290cd02-123360711cf8af520e5a87cf;Sampled=0
+            Pragma:
+              schema:
+                type: string
+                example: no-cache
+          content:
+            application/json:
+              schema:
+                type: object
+              example: {}
+  /support/issuereward:
+    post:
+      tags:
+        - support
+      summary: IssueReward
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                Barcode: 57OPD2JUH3UF
+      parameters:
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: '{{acceptVal}}'
+        - name: x-api-key
+          in: header
+          schema:
+            type: string
+          example: '{{xApiKey}}'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: '{{authKey}}'
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: '{{acceptVal}}'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /support/issuevisit:
+    post:
+      tags:
+        - support
+      summary: IssueVisit
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                Barcode: 57OPD2JUH3UF
+      parameters:
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: '{{acceptVal}}'
+        - name: x-api-key
+          in: header
+          schema:
+            type: string
+          example: '{{xApiKey}}'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: '{{authKey}}'
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: '{{acceptVal}}'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /support/mergeCards:
+    post:
+      tags:
+        - support
+      summary: MergeCard
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                sourceCard: >-
+                  2003000000083455991231~0BFB33661E499BEAA2F1E693731A112F~D09922635250C0AE5D1919D4CCA8CDB5
+                targetCard: >-
+                  0463000000125255991231|C1A79B64365C30CC7B4E10A33E90A8AC|D4880CC22D553CAE5DC33396018217C9
+                targetUserId: us-east-1:69b07f7f-2a91-4691-95c8-3de13345a914
+      parameters:
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: '{{acceptVal}}'
+        - name: x-api-key
+          in: header
+          schema:
+            type: string
+          example: '{{xApiKey}}'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: '{{authKey}}'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /template/offers:
+    post:
+      tags:
+        - template
+      summary: AddTemplateOffers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                offers:
+                  - userId: us-east-1:16768de8-692a-43d5-b32a-718367314962
+                    personalizedOfferId: template-offer-frequency
+                    startDate: '2020-06-01T00:00:00.000Z'
+                    expiryDate: '2030-01-01T00:00:00.000Z'
+                    offerId: 290fb746-9850-4994-b7d7-5630046792e1
+                    campaignId: d9e8e1e5-16ab-4934-8ea1-ee84b8292c8c
+                    challengeType: frequency
+                    challengeStatus:
+                      goalId1:
+                        status: potential
+                        goals:
+                          total_cost: 10
+                        reward:
+                          points: 10
+                      goalId2:
+                        status: potential
+                        goals:
+                          total_cost: 10
+                        reward:
+                          points: 40
+      parameters:
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: '{{acceptVal}}'
+        - name: x-api-key
+          in: header
+          schema:
+            type: string
+          example: '{{xApiKey}}'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: '{{authKey}}'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Wed, 04 May 2022 19:49:22 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '160'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            x-amzn-RequestId:
+              schema:
+                type: string
+                example: b5214c9f-fc07-4e16-a8ef-743a2a8fc4e3
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Strict-Transport-Security:
+              schema:
+                type: string
+                example: max-age=31536000; includeSubDomains; preload
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: >-
+                  Accept,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,Origin,X-Requested-With,locale,Locale,Verify,X-Session,Location
+            x-amz-apigw-id:
+              schema:
+                type: string
+                example: RnbODEkSIAMFUgw=
+            Cache-Control:
+              schema:
+                type: string
+                example: no-store
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: GET,OPTIONS
+            X-Requested-With:
+              schema:
+                type: string
+                example: '*'
+            X-Amzn-Trace-Id:
+              schema:
+                type: string
+                example: Root=1-6272d8c0-1ec9ae1117b8e3a66ac08623;Sampled=0
+            Pragma:
+              schema:
+                type: string
+                example: no-cache
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                processed: 0
+                skippedOffers: []
+                failedOffers:
+                  - userId: us-east-1:16768de8-692a-43d5-b32a-718367314962
+                    offerId: 290fb746-9850-4994-b7d7-5630046792e1
+  /template/points:
+    post:
+      tags:
+        - template
+      summary: IssuePoints
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                Barcode: >-
+                  0463000000000332991231|29B83CC300142481C294AAB9A105AD50|94450E22730524EBF4FB528EF7AF2EBA
+                Rolls: 5
+                Points: 10
+      parameters:
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: '{{acceptVal}}'
+        - name: x-api-key
+          in: header
+          schema:
+            type: string
+          example: '{{xApiKey}}'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: '{{authKey}}'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Wed, 04 May 2022 19:53:21 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '2'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            x-amzn-RequestId:
+              schema:
+                type: string
+                example: ded4f15e-9cf5-4ab8-a2df-4729b2a87ca3
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Strict-Transport-Security:
+              schema:
+                type: string
+                example: max-age=31536000; includeSubDomains; preload
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: >-
+                  Accept,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,Origin,X-Requested-With,locale,Locale,Verify,X-Session,Location
+            x-amz-apigw-id:
+              schema:
+                type: string
+                example: RnbzeF_AoAMF9ag=
+            Cache-Control:
+              schema:
+                type: string
+                example: no-store
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: GET,OPTIONS
+            X-Requested-With:
+              schema:
+                type: string
+                example: '*'
+            X-Amzn-Trace-Id:
+              schema:
+                type: string
+                example: Root=1-6272d9af-0260cd1b6db5477f6e773ca0;Sampled=0
+            Pragma:
+              schema:
+                type: string
+                example: no-cache
+          content:
+            application/json:
+              schema:
+                type: object
+              example: {}
